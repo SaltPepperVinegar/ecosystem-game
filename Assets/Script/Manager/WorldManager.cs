@@ -10,6 +10,7 @@ public class WorldManager : MonoBehaviour
 {
     [Header("System References")]
     public ChunkRenderer chunkRenderer;
+    public EntityManager entityManager;
     public Transform playerTransform;
 
     [Header("Generation Settings")]
@@ -24,6 +25,8 @@ public class WorldManager : MonoBehaviour
     private Vector2Int lastPlayerChunk = new Vector2Int(-9999, -9999);
     private HashSet<Vector2Int> loadedChunkCoords = new HashSet<Vector2Int>();
     private Coroutine currentChunkUpdate;
+    public List<BiomeSpawnConfig> biomeConfigs;
+
     private void Start()
     {
         if (useRandomSeed)
@@ -62,6 +65,7 @@ public class WorldManager : MonoBehaviour
                 StopCoroutine(currentChunkUpdate);
             }
             
+            
             currentChunkUpdate = StartCoroutine(UpdateVisibleChunks());     
         }
         
@@ -70,11 +74,15 @@ public class WorldManager : MonoBehaviour
     public void InitializeGame(int seed)
     {
         worldMap = new WorldMap();
-        mapGenerator = new MapGenerator(seed);
+        mapGenerator = new MapGenerator(seed, biomeConfigs);
 
         if (chunkRenderer != null)
         {
             chunkRenderer.SubscribeToWorld(worldMap);
+        }
+        if (entityManager != null)
+        {
+            entityManager.SubscribeToWorld(worldMap);
         }
     }
 
@@ -121,16 +129,28 @@ public class WorldManager : MonoBehaviour
     }
     private void LoadChunk(Vector2Int coord)
     {
-        Chunk newChunk = mapGenerator.GenerateChunk(coord);
-        worldMap.AddChunk(newChunk); 
+        if (worldMap.archivedChunks.TryGetValue(coord, out Chunk existingChunk))
+        {
+            worldMap.AddChunk(existingChunk);
+        } else
+        {
+            Chunk newChunk = mapGenerator.GenerateChunk(coord);
+            worldMap.AddChunk(newChunk);
+        }
+
         loadedChunkCoords.Add(coord);
     }
 
     private void UnloadChunk(Vector2Int coord)
     {
-        chunkRenderer.ClearChunk(coord);
-        loadedChunkCoords.Remove(coord);
-        worldMap.activeChunks.Remove(coord); 
+        if(worldMap.activeChunks.TryGetValue(coord, out Chunk chunk))
+        {
+
+            worldMap.UnloadChunk(chunk);
+            loadedChunkCoords.Remove(coord);
+
+        }
+
     }
 
     private Vector3 FindSafeSpawnPosition(Vector3 startPos)

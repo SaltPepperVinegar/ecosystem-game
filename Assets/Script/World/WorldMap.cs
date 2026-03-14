@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorldMap
 {
     public Dictionary<Vector2Int, Chunk> activeChunks = new Dictionary<Vector2Int, Chunk>();
+    public Dictionary<Vector2Int, Chunk> archivedChunks = new Dictionary<Vector2Int, Chunk>();
     public Vector2Int GetChunkCoordFromWorldPos(int worldX, int worldY)
     {
         int cx = Mathf.FloorToInt((float)worldX / Chunk.Size);
@@ -13,6 +14,7 @@ public class WorldMap
     }
 
     public event Action<Chunk> OnChunkRefreshed;
+    public event Action<Chunk> OnChunkUnloaded;
 
     public Vector2Int GetLocalCoordFromWorldPos(int worldX, int worldY)
     {
@@ -26,10 +28,23 @@ public class WorldMap
     }
     public void AddChunk(Chunk chunk)
     {
-        activeChunks[chunk.coordinate] = chunk;
-        OnChunkRefreshed?.Invoke(chunk);
-    }
+        Vector2Int coord = chunk.coordinate;
+        
+        if (!archivedChunks.ContainsKey(coord))
+            archivedChunks.Add(coord, chunk);
 
+        if (!activeChunks.ContainsKey(coord))
+        {
+            activeChunks.Add(coord, chunk);
+            OnChunkRefreshed?.Invoke(chunk);
+        }
+    }
+    public void UnloadChunk(Chunk chunk)
+    {
+        activeChunks.Remove(chunk.coordinate); 
+        OnChunkUnloaded?.Invoke(chunk);
+
+    }
     public Cell? GetCellAt(int worldX, int worldY)
     {
         Vector2Int chunkCoord = GetChunkCoordFromWorldPos(worldX, worldY);
@@ -62,4 +77,5 @@ public class WorldMap
             }
         }
     }
+
 }

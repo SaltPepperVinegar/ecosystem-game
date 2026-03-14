@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator
@@ -11,9 +12,11 @@ public class MapGenerator
     private float seedOffsetX;
     private float seedOffsetY;
 
+    private List<BiomeSpawnConfig> biomeConfigs;
 
-    public MapGenerator(int inputSeed)
+    public MapGenerator(int inputSeed, List<BiomeSpawnConfig> biomeConfigs)
     {
+        this.biomeConfigs = biomeConfigs;
         seed = inputSeed;
         System.Random randomGenerator = new System.Random(seed);
         seedOffsetX = randomGenerator.Next(-100000, 100000);
@@ -26,25 +29,34 @@ public class MapGenerator
     {
         Chunk newChunk = new Chunk(chunkCoord);
 
-        // 2. Iterate through local chunk coordinates.
+        // Generate terrain 
         for (int y = 0; y < Chunk.Size; y++)
         {
             for (int x = 0; x < Chunk.Size; x++)
             {
-                // 3. Calculate absolute world coordinates.
                 int worldX = chunkCoord.x * Chunk.Size + x;
                 int worldY = chunkCoord.y * Chunk.Size + y;
 
-                // 4. Evaluate terrain type using procedural noise algorithms.
                 TerrainType type = EvaluateTerrain(worldX, worldY);
-
-                // 5. Apply the evaluated data to the cell.
                 Cell cell = new Cell { terrainType = type };
                 newChunk.SetCell(x, y, cell);
             }
+        } 
+        // Populate entities 
+        System.Random prng = new System.Random(seed + chunkCoord.GetHashCode());
+
+        if (biomeConfigs != null)
+        {
+            foreach (BiomeSpawnConfig config in biomeConfigs)
+            {   
+                Debug.Log(config.targetTerrain + " for " + chunkCoord.GetHashCode());
+                config.PopulateChunk(newChunk, prng);
+            }
         }
+        
         return newChunk;
     }
+
 
     // Evaluates the terrain type for a specific world coordinate using Perlin noise.
     private TerrainType EvaluateTerrain(int worldX, int worldY)

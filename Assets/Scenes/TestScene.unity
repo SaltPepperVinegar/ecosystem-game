@@ -226,7 +226,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -301,6 +301,59 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &769460158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769460159}
+  - component: {fileID: 769460160}
+  m_Layer: 0
+  m_Name: EntityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &769460159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769460158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &769460160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769460158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ececb52e77aee04387a5d26aca4ba1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityManager
+  prefabLibrary:
+  - type: 3
+    prefab: {fileID: 5453120867625505632, guid: 272d30cd0108fae4eb87da5b9baa434d, type: 3}
+  - type: 2
+    prefab: {fileID: 3655772846255168252, guid: 3b28010590a21fa4f91b6da2c998882a, type: 3}
+  - type: 1
+    prefab: {fileID: 1535266831760513622, guid: a12bcc4c8da9e3643adc518346abf588, type: 3}
+  - type: 0
+    prefab: {fileID: 7460269256698526220, guid: b9b6d6a30021be14ab6021696d8985f7, type: 3}
 --- !u!1 &1478938279
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,10 +400,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager
   chunkRenderer: {fileID: 1478938282}
+  entityManager: {fileID: 769460160}
   playerTransform: {fileID: 1990439830}
   useRandomSeed: 1
   mapSeed: 114514
   renderRadius: 2
+  biomeConfigs:
+  - {fileID: 11400000, guid: b982690546db89a4a94093ac818f96ce, type: 2}
+  - {fileID: 11400000, guid: e7588f1b80e3cb746a9b5086269bd0a3, type: 2}
+  - {fileID: 11400000, guid: 277a25075d271e64893b40919b299d93, type: 2}
+  - {fileID: 11400000, guid: c6da5531d0a08594c8d7d9c6bec90ff9, type: 2}
+  - {fileID: 11400000, guid: 18a5c5f84be1112448dd26718451936c, type: 2}
 --- !u!114 &1478938282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +445,7 @@ GameObject:
   - component: {fileID: 1764862819}
   - component: {fileID: 1764862818}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,5 +847,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1478938280}
+  - {fileID: 769460159}
   - {fileID: 253819225}
   - {fileID: 1990439830}

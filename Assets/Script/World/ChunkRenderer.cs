@@ -17,9 +17,12 @@ public class ChunkRenderer : MonoBehaviour
         if (subscribedWorldMap != null)
         {
             subscribedWorldMap.OnChunkRefreshed -= RenderChunk;
+            subscribedWorldMap.OnChunkUnloaded -= ClearChunk;
         }
         subscribedWorldMap = worldMap;
         subscribedWorldMap.OnChunkRefreshed += RenderChunk;
+        subscribedWorldMap.OnChunkUnloaded += ClearChunk;
+
     }
 
     public void RenderChunk(Chunk chunk)
@@ -42,8 +45,9 @@ public class ChunkRenderer : MonoBehaviour
             }
         }
     }
-    public void ClearChunk(Vector2Int chunkCoord)
-    {
+    public void ClearChunk(Chunk chunk)
+    {   
+        Vector2Int chunkCoord = chunk.coordinate;
         if (targetTilemap == null) return;
 
         Vector3Int startPos = new Vector3Int(chunkCoord.x * Chunk.Size, chunkCoord.y * Chunk.Size, 0);
@@ -75,6 +79,8 @@ public class ChunkRenderer : MonoBehaviour
         if (subscribedWorldMap != null)
         {
             subscribedWorldMap.OnChunkRefreshed -= RenderChunk;
+            subscribedWorldMap.OnChunkUnloaded -= ClearChunk;
+
         }
     }
 }

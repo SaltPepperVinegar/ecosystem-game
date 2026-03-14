@@ -38,8 +38,6 @@ public class WorldManager : MonoBehaviour
             Vector3 safePos = FindSafeSpawnPosition(playerTransform.position);
             playerTransform.position = safePos;
         }
-
-        StartCoroutine(UpdateVisibleChunks());    
         
     }
         

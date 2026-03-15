@@ -163,3 +163,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c1d749f5d6ce408226b8adeb0ea01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatureHealth
+  hitDuration: 0.2
+  shakeStrength: 0.2

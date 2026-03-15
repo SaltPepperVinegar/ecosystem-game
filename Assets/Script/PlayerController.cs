@@ -6,6 +6,8 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f, bulletSpeed = 15.0f;
+    [SerializeField] private int bulletDamage = 5;
+
     [SerializeField] private Transform gun;
     [SerializeField] private GameObject bulletGo;
     [SerializeField] private int enemyLayer;
@@ -52,10 +54,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.layer == enemyLayer)
         {   
-            EntityBody enemy = other.gameObject.GetComponent<EntityBody>();
-            if (enemy != null){
-                enemy.RemoveEntity();
-            }
+            other.GetComponent<CreatureHealth>()?.TakeDamage(bulletDamage);
+            
             Destroy(bullet);
 
             money += 10;

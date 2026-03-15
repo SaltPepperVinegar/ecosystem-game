@@ -7,8 +7,6 @@ public class EntityBody : MonoBehaviour
     public void Initialize(EntityData data)
     {
         this.Data = data;
-        // Here you can set health, visuals, or AI state based on data
-        // e.g., GetComponent<HealthComponent>().currentHp = data.health;
     }
 
     public void PrepareForPool()
@@ -17,7 +15,6 @@ public class EntityBody : MonoBehaviour
         if (Data != null)
         {
             Data.worldPosition = transform.position;
-            // Data.health = myCurrentHealth;
         }
     }
 

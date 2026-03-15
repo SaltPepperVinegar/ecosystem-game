@@ -20,4 +20,10 @@ public class EntityBody : MonoBehaviour
             // Data.health = myCurrentHealth;
         }
     }
+
+    public void RemoveEntity()
+    {
+        EntityManager.Instance.RemoveEntity(Data);
+    }
+
 }

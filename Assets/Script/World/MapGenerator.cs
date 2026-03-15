@@ -49,7 +49,7 @@ public class MapGenerator
         {
             foreach (BiomeSpawnConfig config in biomeConfigs)
             {   
-                Debug.Log(config.targetTerrain + " for " + chunkCoord.GetHashCode());
+                //Debug.Log(config.targetTerrain + " for " + chunkCoord.GetHashCode());
                 config.PopulateChunk(newChunk, prng);
             }
         }

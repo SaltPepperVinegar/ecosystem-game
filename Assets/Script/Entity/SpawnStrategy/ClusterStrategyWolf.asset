@@ -15,7 +15,7 @@ MonoBehaviour:
   potentialEntities:
   - type: 3
     weight: 1
-  spawnChancePerTile: 0.003
+  spawnChancePerTile: 0.0025
   minCount: 1
   maxCount: 1
   clusterRadius: 2

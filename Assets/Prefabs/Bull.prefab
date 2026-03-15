@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5067998715980868441}
   - component: {fileID: 8730976088204629149}
   - component: {fileID: 497971989828461095}
+  - component: {fileID: 7300117237614223177}
   m_Layer: 6
   m_Name: Bull
   m_TagString: Untagged
@@ -137,3 +138,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.26, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &7300117237614223177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655772846255168252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d50c23e88b723947840f169400215c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityBody

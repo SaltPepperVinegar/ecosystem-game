@@ -18,11 +18,13 @@ public class EntityManager : MonoBehaviour
     private Dictionary<EntityData, GameObject> activeEntities = new Dictionary<EntityData, GameObject>();
     private Dictionary<Vector2Int, List<EntityData>> chunkToDataMap = new Dictionary<Vector2Int, List<EntityData>>();
 
+    public static EntityManager Instance;
     private void Awake() {
         foreach (var map in prefabLibrary) {
             pools[map.type] = new Queue<GameObject>();
             typeToPrefab[map.type] = map.prefab;
         }
+        Instance = this;
         
     }
 
@@ -89,6 +91,7 @@ public class EntityManager : MonoBehaviour
     }
     public void RemoveEntity(EntityData data)
     {
+        Debug.Log("removeing entity ");
         if (activeEntities.TryGetValue(data, out GameObject body))
         {
             // Return body to pool

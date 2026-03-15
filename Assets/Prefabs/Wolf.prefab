@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1198296922946613785}
   - component: {fileID: 8909431562460051786}
   - component: {fileID: 241690680733877371}
+  - component: {fileID: -85203215525910326}
   m_Layer: 6
   m_Name: Wolf
   m_TagString: Untagged
@@ -137,3 +138,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.25, y: 0.63}
   m_EdgeRadius: 0
+--- !u!114 &-85203215525910326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453120867625505632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d50c23e88b723947840f169400215c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityBody

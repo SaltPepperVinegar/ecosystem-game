@@ -15,5 +15,5 @@ MonoBehaviour:
   potentialEntities:
   - type: 0
     weight: 1
-  spawnChancePerTile: 0.005
+  spawnChancePerTile: 0.05
   maxOffset: 0.4

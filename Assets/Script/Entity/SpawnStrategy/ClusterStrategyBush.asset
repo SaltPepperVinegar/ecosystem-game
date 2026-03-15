@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ClusterStrategyBush
   m_EditorClassIdentifier: Assembly-CSharp::ClusterSpawnStrategy
   potentialEntities:
-  - type: 2
+  - type: 1
     weight: 1
-  spawnChancePerTile: 0.005
+  spawnChancePerTile: 0.01
   minCount: 1
-  maxCount: 1
+  maxCount: 5
   clusterRadius: 2

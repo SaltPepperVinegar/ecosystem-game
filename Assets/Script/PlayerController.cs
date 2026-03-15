@@ -51,8 +51,11 @@ public class PlayerController : MonoBehaviour
     void BulletTriggerHit(GameObject bullet, Collider2D other)
     {
         if (other.gameObject.layer == enemyLayer)
-        {
-            Destroy(other.gameObject);
+        {   
+            EntityBody enemy = other.gameObject.GetComponent<EntityBody>();
+            if (enemy != null){
+                enemy.RemoveEntity();
+            }
             Destroy(bullet);
 
             money += 10;

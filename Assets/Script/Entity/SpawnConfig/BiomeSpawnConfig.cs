@@ -15,7 +15,6 @@ public class BiomeSpawnConfig : ScriptableObject
         }
         foreach (var strategy in strategies)
         {
-            Debug.Log("execute: ");
             strategy.Execute(chunk, prng, targetTerrain);
         }
     }

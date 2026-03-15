@@ -17,5 +17,5 @@ MonoBehaviour:
     weight: 1
   spawnChancePerTile: 0.005
   minCount: 1
-  maxCount: 1
+  maxCount: 3
   clusterRadius: 2

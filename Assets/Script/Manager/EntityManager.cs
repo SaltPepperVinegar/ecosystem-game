@@ -40,6 +40,45 @@ public class EntityManager : MonoBehaviour
         subscribedWorldMap.OnChunkUnloaded += DespawnEntitiesForChunk;
 
     }
+
+    public void RegisterEntities(List<EntityData> entities)
+    {        foreach (var data in entities)
+        {
+            Vector2Int coord = subscribedWorldMap.GetChunkCoordFromWorldPos(
+                Mathf.FloorToInt(data.worldPosition.x),
+                Mathf.FloorToInt(data.worldPosition.y)
+            );
+            if (!chunkToDataMap.ContainsKey(coord))
+            {
+                chunkToDataMap[coord] = new List<EntityData>();
+            }
+            chunkToDataMap[coord].Add(data);
+            
+            // If the chunk is currently active, spawn it immediately
+            if (subscribedWorldMap.activeChunks.ContainsKey(coord))
+            {
+                SpawnSingleEntity(data);
+            }
+        }
+    }
+
+    private void SpawnSingleEntity(EntityData data)
+    {
+        if (activeEntities.ContainsKey(data)) return;
+
+        GameObject body = GetFromPool(data.type);
+        body.transform.position = data.worldPosition;
+        body.SetActive(true);
+
+        activeEntities[data] = body;
+
+        EntityBody entityScript = body.GetComponent<EntityBody>();
+        if (entityScript != null)
+        {
+            entityScript.Initialize(data);
+        }
+    }
+
     private void Update()
     {
         if (Time.frameCount % 10 == 0) 
@@ -49,43 +88,35 @@ public class EntityManager : MonoBehaviour
     }
     
     public void SpawnEntitiesForChunk(Chunk chunk) 
+    {
+        if (chunkToDataMap.TryGetValue(chunk.coordinate, out List<EntityData> entities))
         {
-            if (chunk.entities == null) return;
-
-            foreach (EntityData data in chunk.entities) 
+            foreach (EntityData data in entities) 
             {
-                GameObject body = GetFromPool(data.type);
-                body.transform.position = data.worldPosition;
-                body.SetActive(true);
-
-                activeEntities[data] = body;
-
-                EntityBody entityScript = body.GetComponent<EntityBody>();
-                if (entityScript != null)
-                {
-                    entityScript.Initialize(data);
-                }
+                SpawnSingleEntity(data);
             }
         }
+    }
 
     public void DespawnEntitiesForChunk(Chunk chunk) 
     {
-        if (chunk.entities == null) return;
-
-        foreach (EntityData data in chunk.entities) 
+        if (chunkToDataMap.TryGetValue(chunk.coordinate, out List<EntityData> entities))
         {
-            if (activeEntities.TryGetValue(data, out GameObject body)) 
+            foreach (EntityData data in entities) 
             {
-                EntityBody entityScript = body.GetComponent<EntityBody>();
-                if (entityScript != null)
+                if (activeEntities.TryGetValue(data, out GameObject body)) 
                 {
-                    entityScript.PrepareForPool();
+                    EntityBody entityScript = body.GetComponent<EntityBody>();
+                    if (entityScript != null)
+                    {
+                        entityScript.PrepareForPool();
+                    }
+
+                    body.SetActive(false);
+                    pools[data.type].Enqueue(body);
+
+                    activeEntities.Remove(data);
                 }
-
-                body.SetActive(false);
-                pools[data.type].Enqueue(body);
-
-                activeEntities.Remove(data);
             }
         }
     }
@@ -106,9 +137,9 @@ public class EntityManager : MonoBehaviour
             Mathf.FloorToInt(data.worldPosition.y)
         );
 
-        if (subscribedWorldMap.activeChunks.TryGetValue(coord, out Chunk chunk))
+        if (chunkToDataMap.TryGetValue(coord, out List<EntityData> entities))
         {
-            chunk.entities.Remove(data);
+            entities.Remove(data);
         }
     }
 
@@ -151,12 +182,16 @@ public class EntityManager : MonoBehaviour
 
     private void MoveEntityDataBetweenChunks(EntityData data, Vector2Int from, Vector2Int to)
     {
-        if (subscribedWorldMap.activeChunks.TryGetValue(from, out Chunk fromChunk) &&
-                subscribedWorldMap.activeChunks.TryGetValue(to, out Chunk toChunk))
-            {
-                fromChunk.entities.Remove(data);
-                toChunk.entities.Add(data);
-            }
+        if (chunkToDataMap.TryGetValue(from, out List<EntityData> fromList))
+        {
+            fromList.Remove(data);
+        }
+        
+        if (!chunkToDataMap.ContainsKey(to))
+        {
+            chunkToDataMap[to] = new List<EntityData>();
+        }
+        chunkToDataMap[to].Add(data);
     }
 
     private void OnDestroy()

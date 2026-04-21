@@ -4,19 +4,19 @@ using UnityEngine;
 public abstract class SpawnStrategy : ScriptableObject
 {
     [System.Serializable]
-    public class SpawnableEntity 
+    public class SpawnableEntity
     {
         public EntityType type;
-        public float weight = 1.0f; 
+        public float weight = 1.0f;
     }
 
     public List<SpawnableEntity> potentialEntities;
-    
-    [Range(0f, 1f)] 
+
+    [Range(0f, 1f)]
     [Tooltip("Expected number of spawns per valid tile (e.g., 0.02 = 2 per 100 tiles)")]
     public float spawnChancePerTile;
 
-    public abstract void Execute(Chunk chunk, System.Random prng, TerrainType targetTerrain);
+    public abstract List<EntityData> Execute(Chunk chunk, System.Random prng, TerrainType targetTerrain);
 
     protected EntityType GetRandomType(System.Random prng)
     {
@@ -35,7 +35,7 @@ public abstract class SpawnStrategy : ScriptableObject
             if (pick <= cumulativeWeight) return entity.type;
         }
 
-        return potentialEntities[0].type; 
+        return potentialEntities[0].type;
     }
 
     protected int GetPoisson(float lambda, System.Random prng)

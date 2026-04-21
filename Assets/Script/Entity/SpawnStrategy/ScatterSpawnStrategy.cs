@@ -8,19 +8,20 @@ public class ScatterSpawnStrategy : SpawnStrategy
     [Tooltip("Max random offset from the center of the tile")]
     public float maxOffset = 0.4f; 
 
-    public override void Execute(Chunk chunk, System.Random prng, TerrainType targetTerrain)
+    public override List<EntityData> Execute(Chunk chunk, System.Random prng, TerrainType targetTerrain)
     {
-        if (potentialEntities == null || potentialEntities.Count == 0) return;
+        List<EntityData> spawned = new List<EntityData>();
+        if (potentialEntities == null || potentialEntities.Count == 0) return spawned;
 
         List<Vector2Int> validTiles = chunk.biomeIndex[targetTerrain];
-        if (validTiles.Count == 0) return;
+        if (validTiles.Count == 0) return spawned;
 
         // 1. Lambda: Expected number of individuals in this chunk
         float lambda = validTiles.Count * spawnChancePerTile;
 
         // 2. Poisson: Actual number to spawn this time
         int spawnCount = GetPoisson(lambda, prng);
-        if (spawnCount == 0) return;
+        if (spawnCount == 0) return spawned;
 
         for (int i = 0; i < spawnCount; i++)
         {
@@ -34,7 +35,8 @@ public class ScatterSpawnStrategy : SpawnStrategy
             float worldX = (chunk.coordinate.x * Chunk.Size) + tile.x + offsetX;
             float worldY = (chunk.coordinate.y * Chunk.Size) + tile.y + offsetY;
 
-            chunk.entities.Add(new EntityData(typeToSpawn, new Vector2(worldX, worldY)));
+            spawned.Add(new EntityData(typeToSpawn, new Vector2(worldX, worldY)));
         }
+        return spawned;
     }
 }

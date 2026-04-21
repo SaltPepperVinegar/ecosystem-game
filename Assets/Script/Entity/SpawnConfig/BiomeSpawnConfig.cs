@@ -7,15 +7,17 @@ public class BiomeSpawnConfig : ScriptableObject
     public TerrainType targetTerrain;
     public List<SpawnStrategy> strategies;
     
-    public void PopulateChunk(Chunk chunk, System.Random prng)
+    public List<EntityData> PopulateChunk(Chunk chunk, System.Random prng)
     {
+        List<EntityData> spawned = new List<EntityData>();
         if (!chunk.biomeIndex.ContainsKey(targetTerrain) || chunk.biomeIndex[targetTerrain].Count == 0)
         {
-            return; 
+            return spawned; 
         }
         foreach (var strategy in strategies)
         {
-            strategy.Execute(chunk, prng, targetTerrain);
+            spawned.AddRange(strategy.Execute(chunk, prng, targetTerrain));
         }
+        return spawned;
     }
 }

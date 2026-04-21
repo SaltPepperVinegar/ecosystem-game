@@ -9,9 +9,7 @@ public class Chunk
     
     public Vector2Int coordinate; 
     public Cell[] cells;
-
     public Dictionary<TerrainType, List<Vector2Int>> biomeIndex = new Dictionary<TerrainType, List<Vector2Int>>();
-    public List<EntityData> entities = new List<EntityData>();
     
     public Chunk(Vector2Int coord)
     {

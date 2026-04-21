@@ -47,10 +47,15 @@ public class MapGenerator
 
         if (biomeConfigs != null)
         {
+            List<EntityData> chunkEntities = new List<EntityData>();
             foreach (BiomeSpawnConfig config in biomeConfigs)
             {   
-                //Debug.Log(config.targetTerrain + " for " + chunkCoord.GetHashCode());
-                config.PopulateChunk(newChunk, prng);
+                chunkEntities.AddRange(config.PopulateChunk(newChunk, prng));
+            }
+
+            if (EntityManager.Instance != null && chunkEntities.Count > 0)
+            {
+                EntityManager.Instance.RegisterEntities(chunkEntities);
             }
         }
         

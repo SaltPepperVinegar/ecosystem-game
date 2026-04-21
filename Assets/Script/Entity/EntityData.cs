@@ -14,6 +14,7 @@ public class EntityData
     public int health;
 
     public int aiState; 
+    public int herdID = -1;
     public EntityData(EntityType type, Vector2 pos, int hp = 10)
     {
         this.type = type;

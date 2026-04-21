@@ -11,7 +11,7 @@ public class EntityData
 {
     public EntityType type;
     public Vector2 worldPosition; 
-    public int health;
+    public int health = 10;
 
     public int aiState; 
     public int herdID = -1;

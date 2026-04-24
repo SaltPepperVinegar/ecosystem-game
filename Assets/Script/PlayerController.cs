@@ -6,13 +6,13 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f, bulletSpeed = 15.0f;
-    [SerializeField] private int bulletDamage = 5;
+    [SerializeField] private int bulletDamage = 15;
 
     [SerializeField] private Transform gun;
     [SerializeField] private GameObject bulletGo;
     [SerializeField] private int enemyLayer;
     [SerializeField] private TMP_Text moneyUI;
-    
+    [SerializeField] private Animator anim;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Vector3 mousePos;
@@ -28,8 +28,15 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocity = moveInput * moveSpeed;
-    }
+        anim.SetFloat("Speed", moveInput.magnitude);
 
+        if (moveInput.x < 0) {
+            anim.transform.localScale = new Vector3(1, 1, 1);
+        } 
+        else if (moveInput.x > 0) {
+            anim.transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();

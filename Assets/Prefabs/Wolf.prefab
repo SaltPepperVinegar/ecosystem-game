@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 241690680733877371}
   - component: {fileID: -85203215525910326}
   - component: {fileID: 637011517437940510}
+  - component: {fileID: -394129071750996372}
+  - component: {fileID: 4876308714485840766}
   m_Layer: 6
   m_Name: Wolf
   m_TagString: Untagged
@@ -82,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: -344010815
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4627655090596242047, guid: 87bcafb9364d376499648a7e6cb97c0f, type: 3}
+  m_Sprite: {fileID: -9210845231901669789, guid: af2991a858d5c3b4fb6d9d785422f611, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +133,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.25, y: 0.63}
+    oldSize: {x: 1.4439999, y: 0.92512465}
     newSize: {x: 1.25, y: 0.63}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -163,3 +165,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c1d749f5d6ce408226b8adeb0ea01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatureHealth
+  hitDuration: 0.2
+  shakeStrength: 0.2
+--- !u!114 &-394129071750996372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453120867625505632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce8c92aae238454daad927a272f2759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomWander
+  moveSpeed: 3
+  minTime: 2
+  maxTime: 5
+  anim: {fileID: 0}
+  visualTransform: {fileID: 0}
+--- !u!50 &4876308714485840766
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453120867625505632}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

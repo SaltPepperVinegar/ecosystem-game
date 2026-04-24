@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 497971989828461095}
   - component: {fileID: 7300117237614223177}
   - component: {fileID: -5888181574683343577}
+  - component: {fileID: -1611274895509075873}
+  - component: {fileID: -4871897756194857669}
+  - component: {fileID: -6995645901186390418}
   m_Layer: 6
   m_Name: Bull
   m_TagString: Untagged
@@ -82,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: -344010815
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6393022374489228669, guid: c2b8386f6ff3fb948be76bf6100aa7d5, type: 3}
+  m_Sprite: {fileID: 6170212709732382167, guid: aa0708ae039a45245b1671082ffebe66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +134,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.26, y: 0.7}
+    oldSize: {x: 1.308, y: 1.3011752}
     newSize: {x: 1.26, y: 0.7}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -165,3 +168,100 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreatureHealth
   hitDuration: 0.2
   shakeStrength: 0.2
+--- !u!114 &-1611274895509075873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655772846255168252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 000000002b95b054c1cf7eeb17532ec3
+  m_ShapePath:
+  - {x: -0.63, y: -0.35, z: 0}
+  - {x: -0.63, y: 0.35, z: 0}
+  - {x: 0.63, y: 0.35, z: 0}
+  - {x: 0.63, y: -0.35, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 8730976088204629149}
+  m_ShadowShape2DProvider:
+    rid: 1178329373539041567
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0.0031967163, y: 0.0051498413, z: 0}
+      m_Extent: {x: 6.517845, y: 6.481224, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.03
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.03
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.03
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 8730976088204629149}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1178329373539041567
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 
+--- !u!114 &-4871897756194857669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655772846255168252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce8c92aae238454daad927a272f2759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomWander
+  moveSpeed: 3
+  minTime: 2
+  maxTime: 5
+  anim: {fileID: 0}
+  visualTransform: {fileID: 0}
+--- !u!50 &-6995645901186390418
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655772846255168252}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
